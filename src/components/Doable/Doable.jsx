@@ -1,0 +1,17 @@
+import s from "./Doable.module.css";
+import Authenticated from "../Authenticated";
+import Unauthenticated from "../Unauthenticated";
+
+function Doable() {
+  const isAuthenticated = false;
+
+  return (
+    <div className={s.wrapper}>
+      <h1 className={s.title}>Doable</h1>
+      <p className={s.description}>Add and filter your most important tasks</p>
+      {isAuthenticated ? <Authenticated /> : <Unauthenticated />}
+    </div>
+  );
+}
+
+export default Doable;
