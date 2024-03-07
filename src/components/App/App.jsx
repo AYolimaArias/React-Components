@@ -27,7 +27,7 @@ function App() {
         <button
           className={s.logo}
           onClick={() => {
-            /* completar */
+            setPage("/");
           }}
         >
           <img src={reactIconUrl} /> React Evaluation
@@ -38,7 +38,7 @@ function App() {
               key={item.to}
               className={clsx(s["nav-item"], page === item.to && s.current)}
               onClick={() => {
-                /* completar */
+                setPage(item.to);
               }}
             >
               {item.name}
@@ -48,9 +48,9 @@ function App() {
       </header>
       <main className={s.main}>
         {/* Utiliza la variable 'page' para renderizar solo uno de los siguientes */}
-        <Home />
-        <ColorGame />
-        <Doable />
+        {page === "/" && <Home setPage={setPage} />}
+        {page === "/color-game" && <ColorGame />}
+        {page === "/doable" && <Doable />}
       </main>
     </div>
   );
