@@ -1,5 +1,6 @@
 import s from "./Home.module.css";
 import reactIconUrl from "../../assets/react-icon-lg.svg";
+import Button from "../Button";
 
 function Home({ setPage }) {
   return (
@@ -8,20 +9,22 @@ function Home({ setPage }) {
       <h1 className={s.title}>React Evaluation</h1>
       <p className={s.name}>Angélica Arias</p>
       <div className={s.buttons}>
-        <button
+        <Button
+          variant="outline"
           onClick={() => {
             setPage("/color-game");
           }}
         >
           Color Game
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="outline"
           onClick={() => {
             setPage("/doable");
           }}
         >
           Doable
-        </button>
+        </Button>
       </div>
     </div>
   );
