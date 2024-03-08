@@ -4,6 +4,7 @@ import s from "./App.module.css";
 import Home from "../Home";
 import ColorGame from "../ColorGame";
 import Doable from "../Doable";
+import { AuthProvider } from "../../contexts/authContext";
 
 import reactIconUrl from "../../assets/react-icon.svg";
 
@@ -50,7 +51,11 @@ function App() {
         {/* Utiliza la variable 'page' para renderizar solo uno de los siguientes */}
         {page === "/" && <Home setPage={setPage} />}
         {page === "/color-game" && <ColorGame />}
-        {page === "/doable" && <Doable />}
+        {page === "/doable" && (
+          <AuthProvider>
+            <Doable />
+          </AuthProvider>
+        )}
       </main>
     </div>
   );

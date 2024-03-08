@@ -5,6 +5,7 @@ const authContext = React.createContext({
   isAuthenticated: false,
   login: () => {},
   logout: () => {},
+  signup: () => {},
 });
 
 export function AuthProvider({ children }) {
@@ -70,7 +71,13 @@ export function AuthProvider({ children }) {
     setIsAuthenticated(false);
   }
 
-  return <authContext.Provider>{children}</authContext.Provider>;
+  return (
+    <authContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, login, signup, logout }}
+    >
+      {children}
+    </authContext.Provider>
+  );
 }
 
 export function useAuth() {

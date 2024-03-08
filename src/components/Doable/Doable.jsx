@@ -1,9 +1,11 @@
 import s from "./Doable.module.css";
 import Authenticated from "../Authenticated";
 import Unauthenticated from "../Unauthenticated";
+import { useAuth } from "../../contexts/authContext";
 
 function Doable() {
-  const isAuthenticated = false;
+  // const isAuthenticated = false;
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className={s.wrapper}>

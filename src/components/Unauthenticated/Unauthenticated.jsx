@@ -1,9 +1,11 @@
 import * as React from "react";
 import s from "./Unauthenticated.module.css";
+import { useAuth } from "../../contexts/authContext";
 
 function Unauthenticated() {
-  const login = () => {};
-  const signup = () => {};
+  // const login = () => {};
+  // const signup = () => {};
+  const { login, signup } = useAuth();
 
   const [status, setStatus] = React.useState("idle");
   const [activeTab, setActiveTab] = React.useState("login");
