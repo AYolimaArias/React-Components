@@ -10,15 +10,19 @@ function Unauthenticated() {
   const [status, setStatus] = React.useState("idle");
   const [activeTab, setActiveTab] = React.useState("login");
   const [signUpErrors, setSignUpErrors] = React.useState(null);
+  const [formData, setFormData] = React.useState({ email: "", password: "" });
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
-
     // obtener datos del formulario
-    const email = "";
-    const password = "";
-
+    console.log(formData);
     setStatus("loading");
+
+    const { email, password } = formData;
 
     if (activeTab === "login") {
       login(email, password)
@@ -67,6 +71,8 @@ function Unauthenticated() {
             type="email"
             name="email"
             placeholder="user@example.com"
+            value={formData.email}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -77,6 +83,8 @@ function Unauthenticated() {
             id="password"
             name="password"
             required
+            value={formData.password}
+            onChange={handleInputChange}
             minLength={6}
           />
         </div>
