@@ -1,23 +1,31 @@
 import * as React from "react";
 import s from "./ColorGame.module.css";
 import { getRandomColors, getStatus, rgbString, statusMessage } from "./utils";
+import Button from "../Button";
 
 function ColorGame() {
-  let numOfColors = 6;
-  let colors = getRandomColors(numOfColors);
-  let attempts = [];
+  const [numOfColors, setNumOfColors] = React.useState(6);
+  const [colors, setColors] = React.useState(getRandomColors(numOfColors));
+  const [attempts, setAttempts] = React.useState([]);
+  const [target, setTarget] = React.useState(
+    Math.floor(Math.random() * colors.length)
+  );
 
-  const target = Math.floor(Math.random() * colors.length);
+  // let colors = getRandomColors(numOfColors);
+  // let attempts = [];
+  // const target = Math.floor(Math.random() * colors.length);
 
   function handleReset() {
-    attempts = [];
-    colors = getRandomColors(numOfColors);
+    setAttempts([]);
+    setColors(getRandomColors(numOfColors));
+    setTarget(Math.floor(Math.random() * colors.length));
   }
 
   function handleChangeNumber(event) {
-    numOfColors = event.target.value;
-    attempts = [];
-    colors = getRandomColors(numOfColors);
+    setNumOfColors(+event.target.value);
+    setAttempts([]);
+    setColors(getRandomColors(+event.target.value));
+    setTarget(Math.floor(Math.random() * colors.length));
   }
 
   const status = getStatus(attempts, target, numOfColors);
@@ -29,7 +37,20 @@ function ColorGame() {
         Guess which color correspond to the following RGB code
       </p>
 
-      <div className={s["rgb-wrapper"]}>{rgbString(colors[target])}</div>
+      <div className={s["rgb-wrapper"]}>
+        <div className={`${s.red_box} ${s.rgb}`}>
+          <p className={s.color_number}>{colors[target][0]}</p>
+          <p className={s.color_name}>red</p>
+        </div>
+        <div className={`${s.green_box} ${s.rgb}`}>
+          <p className={s.color_number}>{colors[target][1]}</p>
+          <p className={s.color_name}>green</p>
+        </div>
+        <div className={`${s.blue_box} ${s.rgb}`}>
+          <p className={s.color_number}>{colors[target][2]}</p>
+          <p className={s.color_name}>blue</p>
+        </div>
+      </div>
       <div className={s.dashboard}>
         <div className={s["number-input"]}>
           <label htmlFor="colors"># Colors</label>
@@ -44,19 +65,21 @@ function ColorGame() {
           />
         </div>
         <p className={s["game-status"]}>{statusMessage[status]}</p>
-        <button onClick={handleReset}>Reset</button>
+        <Button onClick={handleReset}>Reset</Button>
       </div>
       <div className={s.squares}>
         {colors.map((color, index) => {
-          const backgroundColor = rgbString(color);
-          const opacity = attempts.includes(index) ? "0" : "100";
+          const backgroundColor =
+            status === "playing" ? rgbString(color) : rgbString(colors[target]);
+          const opacity =
+            attempts.includes(index) && status === "playing" ? "0" : "100";
 
           return (
             <button
               key={index}
               style={{ backgroundColor, opacity }}
               onClick={() => {
-                /* completar */
+                setAttempts([...attempts, index]);
               }}
               className={s.square}
             ></button>

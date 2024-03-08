@@ -24,8 +24,17 @@
 .rgb-wrapper {
   display: flex;
   justify-content: center;
-  gap: var(--spacing-2, 8px);
+  gap: var(--spacing-1, 8px);
   margin-bottom: var(--spacing-8);
+}
+.red_box {
+  border: 4px solid #ff0000;
+}
+.green_box {
+  border: 4px solid #00ff00;
+}
+.blue_box {
+  border: 4px solid #0000ff;
 }
 
 .rgb {
@@ -36,13 +45,11 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   border-radius: var(--rounded, 4px);
   background: var(--background, #fff);
-  border: 4px solid;
 }
 
-.color-number {
+.color_number {
   text-align: center;
   font-size: var(--font-2xl);
   font-weight: 700;
@@ -54,7 +61,7 @@
   flex: 1 0 0;
 }
 
-.color-name {
+.color_name {
   text-align: center;
 
   /* text-lg/leading-8/regular */
