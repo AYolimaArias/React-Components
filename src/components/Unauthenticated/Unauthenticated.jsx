@@ -1,10 +1,9 @@
 import * as React from "react";
 import s from "./Unauthenticated.module.css";
 import { useAuth } from "../../contexts/authContext";
+import Button from "../Button";
 
 function Unauthenticated() {
-  // const login = () => {};
-  // const signup = () => {};
   const { login, signup } = useAuth();
 
   const [status, setStatus] = React.useState("idle");
@@ -18,10 +17,10 @@ function Unauthenticated() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // obtener datos del formulario
+
     console.log(formData);
     setStatus("loading");
-
+    // obtener datos del formulario
     const { email, password } = formData;
 
     if (activeTab === "login") {
@@ -88,9 +87,9 @@ function Unauthenticated() {
             minLength={6}
           />
         </div>
-        <button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading}>
           {isLoading ? "Loading..." : buttonText}
-        </button>
+        </Button>
       </form>
       {hasError && (
         <p className={s["error-message"]}>

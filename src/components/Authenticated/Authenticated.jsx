@@ -2,6 +2,9 @@ import * as React from "react";
 import s from "./Authenticated.module.css";
 import { BadgeAlert, Trash2 } from "lucide-react";
 import { filterTasks, sortTasks } from "./utils";
+import { useAuth } from "../../contexts/authContext";
+import Button from "../Button";
+import { getTasks, createTask } from "../../services/tasks";
 
 const exampleTasks = [
   {
@@ -31,10 +34,26 @@ const exampleTasks = [
 ];
 
 function Authenticated() {
-  const logout = () => {};
+  // const logout = () => {};
+  const { logout } = useAuth();
   const [status, setStatus] = React.useState("idle");
   const [formStatus, setFormStatus] = React.useState("idle");
-  const [tasks, setTasks] = React.useState(exampleTasks);
+  const [tasks, setTasks] = React.useState([]);
+
+  React.useEffect(() => {
+    setStatus("loading");
+    const fetchUserTasks = async () => {
+      try {
+        const userTasks = await getTasks();
+        setTasks(userTasks);
+        setStatus("success");
+      } catch (error) {
+        console.error("Error to get the tasks", error);
+        setStatus("error");
+      }
+    };
+    fetchUserTasks();
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -42,6 +61,16 @@ function Authenticated() {
     const taskData = Object.fromEntries(formData.entries());
 
     // crear task
+    try {
+      setFormStatus("loading");
+
+      const newTask = await createTask(taskData);
+      setTasks([...tasks, newTask]);
+      setFormStatus("idle");
+    } catch (error) {
+      console.error("Error to create the task", error);
+      setFormStatus("error");
+    }
   }
 
   async function handleEdit(id, updates) {
@@ -77,9 +106,9 @@ function Authenticated() {
           aria-label="due_date"
           disabled={isCreating}
         />
-        <button disabled={isCreating}>
+        <Button disabled={isCreating}>
           {isCreating ? "Adding..." : "Add task"}
-        </button>
+        </Button>
       </form>
 
       <div className={s["tasks-wrapper"]}>
@@ -104,16 +133,18 @@ function Authenticated() {
               <label htmlFor="important">Only important</label>
             </div>
           </div>
-          <button
+          <Button
+            variant="outline"
             onClick={() => {
-              /* completar */
+              logout();
             }}
           >
             Logout
-          </button>
+          </Button>
         </aside>
         <div className={s["tasks-list"]}>
-          {isLoading && <p>Loading...</p>}
+          {(isLoading || isCreating) && <p>Loading...</p>}
+
           {tasks.length > 0 &&
             sortedTasks.map((task) => (
               <div key={task.id} className={s["task-wrapper"]}>
@@ -136,20 +167,22 @@ function Authenticated() {
                   </div>
                 </div>
                 <div className={s.actions}>
-                  <button
+                  <Button
+                    variant="outline"
                     onClick={() => {
                       /* completar */
                     }}
                   >
                     <BadgeAlert />
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant="outline"
                     onClick={() => {
                       /* completar */
                     }}
                   >
                     <Trash2 />
-                  </button>
+                  </Button>
                 </div>
               </div>
             ))}
