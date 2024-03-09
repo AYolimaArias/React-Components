@@ -22,7 +22,6 @@ function Authenticated() {
     onlyPending: false,
     onlyImportant: false,
   });
-  const [active, setActive] = React.useState({});
 
   React.useEffect(() => {
     setStatus("loading");
@@ -38,13 +37,6 @@ function Authenticated() {
     };
     fetchUserTasks();
   }, []);
-
-  const handleButton = (taskId) => {
-    setActive((prevStates) => ({
-      ...prevStates,
-      [taskId]: !prevStates[taskId],
-    }));
-  };
 
   const handleFilterChange = (event) => {
     const { id, checked } = event.target;
@@ -215,10 +207,9 @@ function Authenticated() {
                 </div>
                 <div className={s.actions}>
                   <Button
-                    variant={active[task.id] ? "primary" : "outline"}
+                    variant={task.important ? "primary" : "outline"}
                     onClick={() => {
                       handleEdit(task.id);
-                      handleButton(task.id);
                     }}
                   >
                     <BadgeAlert />
