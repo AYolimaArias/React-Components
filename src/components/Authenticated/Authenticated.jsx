@@ -66,18 +66,13 @@ function Authenticated() {
     }
   }
 
-  async function handleEdit(id) {
+  async function handleEdit(task) {
     // editar task
     try {
-      await editTask(id, { important: true });
-      const updatedTasks = tasks.map((task) => {
-        if (task.id === id) {
-          return { ...task, important: true };
-        }
-        return task;
-      });
-      console.log(updatedTasks);
-      setTasks(updatedTasks);
+      await editTask(task.id, { important: !task.important });
+      const dataTask = await getTasks();
+      setTasks(dataTask);
+      setStatus("success");
     } catch (error) {
       console.error("error to edit the task", error);
     }
@@ -94,16 +89,12 @@ function Authenticated() {
     }
   }
 
-  async function handleComplete(id) {
+  async function handleComplete(task) {
     try {
-      await editTask(id, { completed: true });
-      const updatedTasks = tasks.map((task) => {
-        if (task.id === id) {
-          return { ...task, completed: true };
-        }
-        return task;
-      });
-      setTasks(updatedTasks);
+      await editTask(task.id, { completed: !task.completed });
+      const dataTask = await getTasks();
+      setTasks(dataTask);
+      setStatus("success");
     } catch (error) {
       console.error("error to complete the task", error);
     }
@@ -193,7 +184,7 @@ function Authenticated() {
                     id={task.id}
                     checked={task.completed}
                     onChange={() => {
-                      handleComplete(task.id);
+                      handleComplete(task);
                     }}
                   />
                   <div className={s["title-wrapper"]}>
@@ -209,7 +200,7 @@ function Authenticated() {
                   <Button
                     variant={task.important ? "primary" : "outline"}
                     onClick={() => {
-                      handleEdit(task.id);
+                      handleEdit(task);
                     }}
                   >
                     <BadgeAlert />
