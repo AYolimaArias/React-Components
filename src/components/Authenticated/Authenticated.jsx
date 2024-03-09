@@ -172,7 +172,7 @@ function Authenticated() {
             </div>
           </div>
           <Button
-            variant="secondary"
+            variant="primary"
             onClick={() => {
               logout();
             }}

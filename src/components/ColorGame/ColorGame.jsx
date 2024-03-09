@@ -11,10 +11,6 @@ function ColorGame() {
     Math.floor(Math.random() * colors.length)
   );
 
-  // let colors = getRandomColors(numOfColors);
-  // let attempts = [];
-  // const target = Math.floor(Math.random() * colors.length);
-
   function handleReset() {
     setAttempts([]);
     setColors(getRandomColors(numOfColors));
@@ -22,10 +18,14 @@ function ColorGame() {
   }
 
   function handleChangeNumber(event) {
-    setNumOfColors(+event.target.value);
+    if (event.target.value === "") return;
+    const num = +event.target.value;
+    if (![3, 6, 9].includes(num)) return;
+
+    setNumOfColors(num);
     setAttempts([]);
-    setColors(getRandomColors(+event.target.value));
-    setTarget(Math.floor(Math.random() * colors.length));
+    setColors(getRandomColors(num));
+    setTarget(Math.floor(Math.random() * num));
   }
 
   const status = getStatus(attempts, target, numOfColors);
