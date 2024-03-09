@@ -4,34 +4,39 @@ import { BadgeAlert, Trash2 } from "lucide-react";
 import { filterTasks, sortTasks } from "./utils";
 import { useAuth } from "../../contexts/authContext";
 import Button from "../Button";
-import { getTasks, createTask } from "../../services/tasks";
+import {
+  getTasks,
+  createTask,
+  editTask,
+  deleteTask,
+} from "../../services/tasks";
 
-const exampleTasks = [
-  {
-    id: 1234567,
-    title: "Tarea de ejemplo 1",
-    due_date: null,
-    important: false,
-    completed: true,
-    user_id: 1111,
-  },
-  {
-    id: 1234568,
-    title: "Tarea de ejemplo 2",
-    due_date: "2023-12-01",
-    important: true,
-    completed: true,
-    user_id: 1111,
-  },
-  {
-    id: 1234569,
-    title: "Tarea de ejemplo 3",
-    due_date: "2023-12-02",
-    important: false,
-    completed: false,
-    user_id: 1111,
-  },
-];
+// const exampleTasks = [
+//   {
+//     id: 1234567,
+//     title: "Tarea de ejemplo 1",
+//     due_date: null,
+//     important: false,
+//     completed: true,
+//     user_id: 1111,
+//   },
+//   {
+//     id: 1234568,
+//     title: "Tarea de ejemplo 2",
+//     due_date: "2023-12-01",
+//     important: true,
+//     completed: true,
+//     user_id: 1111,
+//   },
+//   {
+//     id: 1234569,
+//     title: "Tarea de ejemplo 3",
+//     due_date: "2023-12-02",
+//     important: false,
+//     completed: false,
+//     user_id: 1111,
+//   },
+// ];
 
 function Authenticated() {
   // const logout = () => {};
@@ -39,6 +44,7 @@ function Authenticated() {
   const [status, setStatus] = React.useState("idle");
   const [formStatus, setFormStatus] = React.useState("idle");
   const [tasks, setTasks] = React.useState([]);
+  const [updates, setUpdates] = React.useState({});
 
   React.useEffect(() => {
     setStatus("loading");
@@ -73,12 +79,47 @@ function Authenticated() {
     }
   }
 
-  async function handleEdit(id, updates) {
+  async function handleEdit(id) {
     // editar task
+    try {
+      await editTask(id, { important: true });
+      const updatedTasks = tasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, important: true };
+        }
+        return task;
+      });
+      console.log(updatedTasks);
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("error to edit the task", error);
+    }
   }
 
   async function handleDelete(id) {
     // eliminar task
+    try {
+      await deleteTask(id);
+      const updatedTasks = tasks.filter((task) => task.id !== id);
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("error to delete the task", error);
+    }
+  }
+
+  async function handleComplete(id) {
+    try {
+      await editTask(id, { completed: true });
+      const updatedTasks = tasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, completed: true };
+        }
+        return task;
+      });
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error("error to complete the task", error);
+    }
   }
 
   const isLoading = status === "loading";
@@ -150,11 +191,12 @@ function Authenticated() {
               <div key={task.id} className={s["task-wrapper"]}>
                 <div className={s["task-data"]}>
                   <input
+                    key={task.id}
                     type="checkbox"
                     id={task.id}
                     checked={task.completed}
                     onChange={() => {
-                      /* completar */
+                      handleComplete(task.id);
                     }}
                   />
                   <div className={s["title-wrapper"]}>
@@ -167,19 +209,12 @@ function Authenticated() {
                   </div>
                 </div>
                 <div className={s.actions}>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      /* completar */
-                    }}
-                  >
+                  <Button variant="outline" onClick={() => handleEdit(task.id)}>
                     <BadgeAlert />
                   </Button>
                   <Button
                     variant="outline"
-                    onClick={() => {
-                      /* completar */
-                    }}
+                    onClick={() => handleDelete(task.id)}
                   >
                     <Trash2 />
                   </Button>
