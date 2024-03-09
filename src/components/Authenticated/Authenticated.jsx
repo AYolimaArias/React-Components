@@ -11,40 +11,17 @@ import {
   deleteTask,
 } from "../../services/tasks";
 
-// const exampleTasks = [
-//   {
-//     id: 1234567,
-//     title: "Tarea de ejemplo 1",
-//     due_date: null,
-//     important: false,
-//     completed: true,
-//     user_id: 1111,
-//   },
-//   {
-//     id: 1234568,
-//     title: "Tarea de ejemplo 2",
-//     due_date: "2023-12-01",
-//     important: true,
-//     completed: true,
-//     user_id: 1111,
-//   },
-//   {
-//     id: 1234569,
-//     title: "Tarea de ejemplo 3",
-//     due_date: "2023-12-02",
-//     important: false,
-//     completed: false,
-//     user_id: 1111,
-//   },
-// ];
-
 function Authenticated() {
   // const logout = () => {};
   const { logout } = useAuth();
   const [status, setStatus] = React.useState("idle");
   const [formStatus, setFormStatus] = React.useState("idle");
   const [tasks, setTasks] = React.useState([]);
-  const [updates, setUpdates] = React.useState({});
+  const [sortBy, setSortBy] = React.useState("");
+  const [filters, setFilters] = React.useState({
+    onlyPending: false,
+    onlyImportant: false,
+  });
 
   React.useEffect(() => {
     setStatus("loading");
@@ -60,6 +37,16 @@ function Authenticated() {
     };
     fetchUserTasks();
   }, []);
+
+  const handleFilterChange = (event) => {
+    const { id, checked } = event.target;
+    setFilters({ ...filters, [id]: checked });
+  };
+
+  const handleSortChange = (event) => {
+    const { value } = event.target;
+    setSortBy(value);
+  };
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -125,8 +112,8 @@ function Authenticated() {
   const isLoading = status === "loading";
   const isCreating = formStatus === "loading";
 
-  const filteredTasks = filterTasks(tasks, {});
-  const sortedTasks = sortTasks(filteredTasks, "");
+  const filteredTasks = filterTasks(tasks, filters);
+  const sortedTasks = sortTasks(filteredTasks, sortBy);
 
   return (
     <>
@@ -156,7 +143,7 @@ function Authenticated() {
         <aside className={s.aside}>
           <div className={s["input-group"]}>
             <label htmlFor="sort_by">Sort by</label>
-            <select id="sort_by">
+            <select id="sort_by" onChange={handleSortChange}>
               <option value="due_date-asc">Due Date (old first)</option>
               <option value="due_date-desc">Due Date (new first)</option>
               <option value="alphabetical-asc">Alphabetical (a-z)</option>
@@ -166,12 +153,22 @@ function Authenticated() {
           <div className={s["input-group"]}>
             <label>Filter</label>
             <div className={s.checkbox}>
-              <input type="checkbox" id="pending" />
-              <label htmlFor="pending">Only pending</label>
+              <input
+                type="checkbox"
+                id="onlyPending"
+                checked={filters.onlyPending}
+                onChange={handleFilterChange}
+              />
+              <label htmlFor="onlyPending">Only pending</label>
             </div>
             <div className={s.checkbox}>
-              <input type="checkbox" id="important" />
-              <label htmlFor="important">Only important</label>
+              <input
+                type="checkbox"
+                id="onlyImportant"
+                checked={filters.onlyImportant}
+                onChange={handleFilterChange}
+              />
+              <label htmlFor="onlyImportant">Only important</label>
             </div>
           </div>
           <Button
