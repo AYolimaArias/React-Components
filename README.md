@@ -11,7 +11,7 @@ This repository contains a collection of React components that cover various fun
 This project challenges you to complete the implementation of various React components, including:
 
 ### Component App
-- The home page already has complete styles and header, but still needs logic to conditionally render the <Home>, <ColorGame>, and <Doable> components.
+- The home page already has complete styles and header, but still needs logic to conditionally render the Home, ColorGame, and Doable components.
 - Navigation between these components is done through the "page" state variable.
 
 ### Component ColorGame
