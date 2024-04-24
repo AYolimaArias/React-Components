@@ -5,7 +5,7 @@ This repository contains a collection of React components that cover various fun
 ## Resources
 - [**Design in Figma:**](https://www.figma.com/file/QJQjUm1zlJmtB7NrVFKBwX/React-Evaluation?type=design&node-id=0-1&mode=design) Detailed design of the project available for reference.
 - **doable-api.json file:** A file at the root of the repository that can be imported into tools like Insomnia to interact with the API.
-- **Reference application:** You can see the application in action [here](https://codeable-react-evaluation.netlify.app/).
+- **Web application:** You can see the application in action [here](https://tubular-taiyaki-5a7060.netlify.app/).
 
 ## The Project
 This project challenges you to complete the implementation of various React components, including:
