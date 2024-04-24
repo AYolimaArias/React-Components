@@ -3,7 +3,7 @@
 This repository contains a collection of React components that cover various functionalities. Below is an overview of what you'll find in this project:
 
 ## Resources
-- **Design in Figma:** Detailed design of the project available for reference.
+- [**Design in Figma:**](https://www.figma.com/file/QJQjUm1zlJmtB7NrVFKBwX/React-Evaluation?type=design&node-id=0-1&mode=design) Detailed design of the project available for reference.
 - **doable-api.json file:** A file at the root of the repository that can be imported into tools like Insomnia to interact with the API.
 - **Reference application:** You can see the application in action [here](https://codeable-react-evaluation.netlify.app/).
 
