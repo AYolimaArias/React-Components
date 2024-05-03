@@ -1,11 +1,10 @@
 # React Components
 
 This repository contains a collection of React components that cover various functionalities. Below is an overview of what you'll find in this project:
-
+ You can see the application in action [here](https://react-components-angelica.netlify.app/).
 ## Resources
 - [**Design in Figma:**](https://www.figma.com/file/QJQjUm1zlJmtB7NrVFKBwX/React-Evaluation?type=design&node-id=0-1&mode=design) Detailed design of the project available for reference.
 - **doable-api.json file:** A file at the root of the repository that can be imported into tools like Insomnia to interact with the API.
-- **Web application:** You can see the application in action [here](https://react-components-angelica.netlify.app/).
 
 ## The Project
 This project challenges you to complete the implementation of various React components, including:
