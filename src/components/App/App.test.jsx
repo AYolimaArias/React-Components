@@ -11,13 +11,13 @@ describe("App test", () => {
 
     screen.debug();
     const element = screen.getByRole("heading", {
-      name: /react evaluation/i,
+      name: /react components/i,
     });
     const element2 = screen.getAllByRole("button", { name: /color game/i });
 
     const element3 = screen.getAllByRole("button", { name: /doable/i });
 
-    expect(element).toHaveTextContent("React Evaluation");
+    expect(element).toHaveTextContent("React Components");
     expect(element).toBeInTheDocument();
     expect(element2[0]).toBeInTheDocument();
     expect(element3[0]).toBeInTheDocument();

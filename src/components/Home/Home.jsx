@@ -6,7 +6,7 @@ function Home({ setPage }) {
   return (
     <div className={s.wrapper}>
       <img src={reactIconUrl} />
-      <h1 className={s.title}>React Evaluation</h1>
+      <h1 className={s.title}>React Components</h1>
       <p className={s.name}>Angélica Arias</p>
       <div className={s.buttons}>
         <Button
