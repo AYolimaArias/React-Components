@@ -31,7 +31,8 @@ function App() {
             setPage("/");
           }}
         >
-          <img src={reactIconUrl} /> React Evaluation
+          <img src={reactIconUrl} />
+          Home
         </button>
         <nav className={s.nav}>
           {navigation.map((item) => (
