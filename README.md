@@ -30,7 +30,7 @@ $ npm install
 - Star the server: 
 
 ```
-$ npm run start
+$ npm run dev
 ```
 
 ## The Project
