@@ -1,10 +1,37 @@
 # React Components
 
 This repository contains a collection of React components that cover various functionalities. Below is an overview of what you'll find in this project:
- You can see the application in action [here](https://react-components-angelica.netlify.app/).
+
+ DEMO: you can see the application in action [here](https://react-components-angelica.netlify.app/).
+
+-Color Game:
+
+https://github.com/AYolimaArias/React-Components-Front/assets/125715473/c4d5ac5b-1eda-41a8-a23e-8e83caf68500
+
+-Doable:
+
+https://github.com/AYolimaArias/React-Components-Front/assets/125715473/b98d7b78-8f69-4118-872e-a409651c9dde
+
 ## Resources
-- [**Design in Figma:**](https://www.figma.com/file/QJQjUm1zlJmtB7NrVFKBwX/React-Evaluation?type=design&node-id=0-1&mode=design) Detailed design of the project available for reference.
+
+- [**Design in Figma:**](https://www.figma.com/file/QJQjUm1zlJmtB7NrVFKBwX/React-Evaluation?type=design&node-id=0-1&mode=design)-> Designed by https://www.codeable.la/ .Detailed design of the project available for reference.
 - **doable-api.json file:** A file at the root of the repository that can be imported into tools like Insomnia to interact with the API.
+
+## Installation
+
+- Make sure your NodeJS and npm versions are updated to `React ^18.2.0`
+
+- Install dependencies: 
+
+```
+$ npm install
+```
+
+- Star the server: 
+
+```
+$ npm run start
+```
 
 ## The Project
 This project challenges you to complete the implementation of various React components, including:
@@ -24,5 +51,11 @@ This project challenges you to complete the implementation of various React comp
 
 ## Testing
 Testing has been implemented for some React components in this project.
+
+- Command to run the test:
+
+```
+$ npm run test
+```
 
 Enjoy exploring this project, and we hope it proves useful for your development!
