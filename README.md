@@ -4,11 +4,11 @@ This repository contains a collection of React components that cover various fun
 
  DEMO: you can see the application in action [here](https://react-components-angelica.netlify.app/).
 
--Color Game:
+- Color Game:
 
 https://github.com/AYolimaArias/React-Components-Front/assets/125715473/c4d5ac5b-1eda-41a8-a23e-8e83caf68500
 
--Doable:
+- Doable:
 
 https://github.com/AYolimaArias/React-Components-Front/assets/125715473/b98d7b78-8f69-4118-872e-a409651c9dde
 
